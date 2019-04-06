@@ -1,30 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import {BrowserRouter, Route} from 'react-router-dom'
 
-function App(){
+import DepartamentoScreen from './components/DepartamentoScreen';
+import FuncionarioScreen from './components/FuncionarioScreen';
+import Menu from './components/Menu';
+import Navigator from './components/Navigator'
+import React from 'react';
 
- 
-  const [funcionarios, setFuncionarios] = useState([]);
-
-  useEffect( () => {
-    async function loadFunc(){
-      const res =  await axios.get('http://localhost:8080/api/funcionario/all');
-      setFuncionarios(res.data);
-    }
-    loadFunc();
-    console.log(funcionarios)
-  }, []);
-
-
-
+export default function App() {
   
-    return (
-      <div className="App">
-        {funcionarios.map((func,i)=>
-          <h1 key={i}>{i} - {func.nome}</h1>
-        )}        
-      </div>
-    ) 
-  }
-
-export default App;
+  return (
+    <div>
+      <BrowserRouter>
+      
+        <Menu/>
+        <Route path="/funcionario" component={FuncionarioScreen}/>
+        <Route path="/departamento" component={DepartamentoScreen}/>        
+      </BrowserRouter>
+      
+    </div>
+  )
+}
